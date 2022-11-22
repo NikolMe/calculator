@@ -8,6 +8,7 @@ namespace calculator
 {
     internal class Program
     {
+        //примерно набросала, потом будет полностью и по красивому
         static void Main()
         {
             Console.WriteLine("CALCULATOR \nSelect mode: \n1 - ordinary \n2 - advanced \nEnter 0 to exit.");
