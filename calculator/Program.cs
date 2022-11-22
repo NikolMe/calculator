@@ -6,6 +6,45 @@ using System.Threading.Tasks;
 
 namespace calculator
 {
+    internal class UsualCalculator
+    {
+        public double num1;
+        public double num2;
+
+        protected internal double Sum()
+        {
+            return num1 + num2;
+        }
+
+        protected internal double Difference()
+        {
+            return num1 - num2;
+        }
+
+        protected internal double Multiplication()
+        {
+            return num1 * num2;
+        }
+
+        protected internal double Division()
+        {
+            return (num1 / num2);
+        }
+    }
+   
+    internal class EngineerCalculator : UsualCalculator
+    {
+        protected internal static double Log(double num)
+        {
+            return Math.Log(num);
+        }
+
+        protected internal static double Sqrt(double num)
+        {
+            return Math.Sqrt(num);
+        }
+    }
+    
     internal class Program
     {
         //примерно набросала, потом будет полностью и по красивому
