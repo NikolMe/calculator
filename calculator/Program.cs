@@ -6,91 +6,70 @@ using System.Threading.Tasks;
 
 namespace calculator
 {
-    internal class UsualCalculator
-    {
-        internal UsualCalculator()
-        {
-            Console.Write("You are using a usual calculator");
-        }
-        
-        public double num1;
-        public double num2;
-
-        protected internal double Sum()
-        {
-            return num1 + num2;
-        }
-
-        protected internal double Difference()
-        {
-            return num1 - num2;
-        }
-
-        protected internal double Multiplication()
-        {
-            return num1 * num2;
-        }
-
-        protected internal double Division()
-        {
-            if (num2 == 0)
-            { 
-              Console.WriteLine("Incorrect value! It should not be 0.");
-              return -1; 
-            }
-            else return (num1 / num2);
-        }
-    }
-   
-    internal class EngineerCalculator : UsualCalculator
-    {
-        public double num;
-        
-        internal EngineerCalculator()
-        {
-            Console.WriteLine("and an engineer calculator");
-        }
-        
-        protected internal double Log()
-        {
-            return Math.Log(num);
-        }
-
-        protected internal double Sqrt()
-        {
-           if (num < 0)
-            {
-                Console.WriteLine("Incorrect value! It should be positiv");
-                return -1;
-            }
-            
-            else return Math.Sqrt(num);
-        }
-    }
-    
     internal class Program
     {
-        //просто накидала, в конце будет полностью и по красивому
+
         static void Main()
         {
             Console.WriteLine("CALCULATOR \nSelect mode: \n1 - ordinary \n2 - advanced \nEnter 0 to exit.");
-            string input = Console.ReadLine();
-            while (input != "exit")
+            string input = Console.ReadLine().Trim();
+
+            while (input != "0")
             {
-                if (input == "1")
+                try
                 {
-                    string operation = Console.ReadLine();
+                    if (input == "1")
+                    {
+                        OrdinaryCalc calc = new OrdinaryCalc();
+                        Console.WriteLine();
+                        while (true) //для виходу з циклу слугує блок if
+                        {
+                            Console.Write("Enter operation: ");
+                            input = Console.ReadLine().Trim();
 
-                }
-                else if (input == "2")
-                {
+                            if (input.Length == 1) { break; } //якщо користувач ввів номер команди
 
+                            var numbers = input.Split(' ');
+
+                            calc.SetNum1(double.Parse(numbers[0]));
+                            calc.SetNum2(double.Parse(numbers[2]));
+                            Console.WriteLine(calc.Operation[char.Parse(numbers[1])]()); //зі словнику викликаємо відповдний метод
+                        }
+                    }
+
+                    else if (input == "2")
+                    {
+                        AdvancedCalc calc = new AdvancedCalc();
+                        Console.WriteLine();
+                        while (true)
+                        {
+                            Console.Write("Enter operation: ");
+                            input = Console.ReadLine().Trim();
+
+                            if (input.Length == 1) { break; } //якщо користувач ввів номер команди
+
+                            var numbers = input.Split(' ');
+
+                            calc.SetNum1(double.Parse(numbers[0]));
+                            if (numbers.Length > 2) { calc.SetNum2(double.Parse(numbers[2])); }
+                            
+                            Console.WriteLine(calc.Operation[char.Parse(numbers[1])]()); //зі словнику викликаємо відповідний метод
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please, choose number.");
+                        input = Console.ReadLine().Trim();
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    Console.WriteLine("Please, choose number.");
+                    Console.WriteLine("Wrong data. Choose mode:");
+                    input = Console.ReadLine().Trim(); 
                 }
             }
+
+            Console.WriteLine("Bye!");
         }
     }
 }
