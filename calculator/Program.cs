@@ -20,7 +20,7 @@ namespace calculator
                 {
                     if (input == "1")
                     {
-                        OrdinaryCalc calc = new OrdinaryCalc();
+                        AbstractCalc calc = new OrdinaryCalc();
                         Console.WriteLine();
                         while (true) //для виходу з циклу слугує блок if
                         {
@@ -39,7 +39,7 @@ namespace calculator
 
                     else if (input == "2")
                     {
-                        AdvancedCalc calc = new AdvancedCalc();
+                        IAdvanced calc = new AdvancedCalc();
                         Console.WriteLine();
                         while (true)
                         {
@@ -50,10 +50,10 @@ namespace calculator
 
                             var numbers = input.Split(' ');
 
-                            calc.SetNum1(double.Parse(numbers[0]));
-                            if (numbers.Length > 2) { calc.SetNum2(double.Parse(numbers[2])); }
+                            ((AbstractCalc)calc).SetNum1(double.Parse(numbers[0]));
+                            if (numbers.Length > 2) { ((AbstractCalc)calc).SetNum2(double.Parse(numbers[2])); }
                             
-                            Console.WriteLine(calc.Operation[char.Parse(numbers[1])]()); //зі словнику викликаємо відповідний метод
+                            Console.WriteLine(((AbstractCalc)calc).Operation[char.Parse(numbers[1])]()); //зі словнику викликаємо відповідний метод
                         }
                     }
                     else

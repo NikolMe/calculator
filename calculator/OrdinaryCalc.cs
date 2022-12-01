@@ -8,7 +8,12 @@ namespace calculator
 {
     public abstract class AbstractCalc
     {
+        public Dictionary<char, Func<double>> Operation { get; set; } = new(); //створюємо словник, де символ операції - ключ, а фукція - значення
         public string Mode { get; set; }
+        public abstract double GetNum1();
+        public abstract void SetNum1(double num);
+        public abstract double GetNum2();
+        public abstract void SetNum2(double num);
         public abstract double Sum();
         public abstract double Difference();
 
@@ -32,28 +37,25 @@ namespace calculator
             Operation.Add('/', Division);
         }
 
-        public Dictionary<char, Func<double>> Operation { get; set; } = new(); //створюємо словник, де символ операції - ключ, а фукція - значення
-
-
         protected double num1;
         protected double num2;
 
-        public double GetNum1()
+        public override double GetNum1()
         {
             return num1;
         }
 
-        public void SetNum1(double num)
+        public override void SetNum1(double num)
         {
             num1 = num;
         }
 
-        public double GetNum2()
+        public override double GetNum2()
         {
             return num2;
         }
 
-        public void SetNum2(double num)
+        public override void SetNum2(double num)
         {
             num2 = num;
         }
